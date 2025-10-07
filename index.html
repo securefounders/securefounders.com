@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureFounders | Redefining Cybersecurity Confidence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+      background-color: #0a0a0a;
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease-out;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Neon glow */
+    .neon-red {
+      box-shadow: 0 0 10px #ff0033, 0 0 20px #ff0033, 0 0 40px #ff0033;
+    }
+
+    /* Hover scale effect (macOS dock style) */
+    .hover-pop {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .hover-pop:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #ff0033;
+    }
+
+    /* Navbar backdrop */
+    #navbar {
+      backdrop-filter: blur(12px);
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  </style>
+</head>
+<body class="text-gray-100">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 px-6 py-4 flex justify-between items-center shadow-lg">
+    <div class="text-2xl font-bold text-red-500">SecureFounders</div>
+    <div class="hidden md:flex space-x-8 text-gray-300">
+      <a href="#services" class="hover:text-red-500 transition">Services</a>
+      <a href="#solutions" class="hover:text-red-500 transition">Solutions</a>
+      <a href="#approach" class="hover:text-red-500 transition">Approach</a>
+      <a href="#resources" class="hover:text-red-500 transition">Resources</a>
+    </div>
+    <div class="hidden md:flex space-x-4">
+      <a href="#secure" class="px-4 py-2 bg-red-500 text-gray-900 rounded-lg font-semibold hover:bg-red-600 transition neon-red">Secure</a>
+      <a href="#contact" class="px-4 py-2 border border-red-500 text-red-500 rounded-lg font-semibold hover:bg-red-600 hover:text-gray-900 transition">Contact</a>
+    </div>
+    <button id="mobile-menu-button" class="md:hidden text-gray-200 focus:outline-none">☰</button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-90 p-6 space-y-4 text-center">
+    <a href="#services" class="block text-gray-300 hover:text-red-500">Services</a>
+    <a href="#solutions" class="block text-gray-300 hover:text-red-500">Solutions</a>
+    <a href="#approach" class="block text-gray-300 hover:text-red-500">Approach</a>
+    <a href="#resources" class="block text-gray-300 hover:text-red-500">Resources</a>
+    <a href="#secure" class="block text-gray-300 hover:text-red-500">Secure</a>
+    <a href="#contact" class="block text-gray-300 hover:text-red-500">Contact</a>
+  </div>
+
+  <!-- Hero Section -->
+<section id="home" class="relative flex flex-col items-center justify-center text-center text-white min-h-screen bg-black pt-32 pb-16">
+  <!-- Heading -->
+  <h1 class="text-5xl md:text-6xl font-extrabold text-red-500 mb-6 drop-shadow-lg">
+    Secure Your Digital Future with <span class="text-white">SecureFounders</span>
+  </h1>
+
+  <!-- Paragraph -->
+  <p class="text-gray-300 text-lg md:text-xl max-w-3xl mb-10 px-4">
+    At SecureFounders, we safeguard startups and enterprises from cyber threats using advanced red teaming, threat intelligence, and continuous security monitoring — ensuring your growth never stops.
+  </p>
+
+  <!-- Hero Image -->
+  <div class="mt-10 w-full flex justify-center">
+    <img src="hero.png.png" alt="Cybersecurity illustration"
+      class="w-5/6 md:w-3/4 lg:w-2/3 object-contain rounded-2xl shadow-2xl transition-transform duration-700 hover:scale-105 hover:shadow-red-600/40" />
+  </div>
+</section>
+
+
+  <!-- Services Section -->
+  <section id="services" class="py-20 px-6 text-center fade-in">
+    <div class="bg-gray-800 bg-opacity-30 backdrop-blur-md p-10 rounded-xl shadow-lg max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold text-red-500 mb-6">Our Services</h2>
+      <p class="text-gray-200 max-w-3xl mx-auto mb-8">
+        From red teaming to compliance automation, we provide a full spectrum of cybersecurity solutions tailored for founders.
+      </p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="redteaming.png.png" alt="Penetration Testing" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Red Teaming</h3>
+          <p class="text-gray-300">Simulate real-world attacks to uncover vulnerabilities before adversaries do.</p>
+        </div>
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="vulnerability management.png.png" alt="Vulnerability Management" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Vulnerability Management</h3>
+          <p class="text-gray-300">Identify, prioritize, and fix vulnerabilities across your digital assets.</p>
+        </div>
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="compliance.png.png" alt="Compliance Support" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Compliance & Governance</h3>
+          <p class="text-gray-300">Achieve and maintain compliance with ISO, GDPR, HIPAA, and SOC standards.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions Section -->
+  <section id="solutions" class="py-20 px-6 text-center fade-in">
+    <div class="bg-gray-800 bg-opacity-30 backdrop-blur-md p-10 rounded-xl shadow-lg max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold text-red-500 mb-6">Solutions Tailored for You</h2>
+      <p class="text-gray-200 max-w-3xl mx-auto mb-8">
+        We empower companies to proactively defend, detect, and respond to cyber threats with cutting-edge solutions.
+      </p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="SOC monitoring.png" alt="SOC Monitoring" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">SOC Monitoring</h3>
+          <p class="text-gray-300">24/7 proactive monitoring and alerting from our expert analysts.</p>
+        </div>
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="cloud security.png" alt="Cloud Security" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Cloud Security</h3>
+          <p class="text-gray-300">Secure AWS, Azure, and GCP environments with deep configuration auditing.</p>
+        </div>
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="thrat intelligence.png" alt="Threat Intelligence" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Threat Intelligence</h3>
+          <p class="text-gray-300">Leverage actionable insights to strengthen your cybersecurity posture.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach Section -->
+  <section id="approach" class="py-20 px-6 text-center fade-in">
+    <div class="bg-gray-800 bg-opacity-30 backdrop-blur-md p-10 rounded-xl shadow-lg max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold text-red-500 mb-6">Our Approach</h2>
+      <p class="text-gray-200 max-w-3xl mx-auto mb-8">
+        At SecureFounders, we integrate advanced threat modeling, automation, and human intelligence for unmatched protection.
+      </p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="assess.png" alt="Assess" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Assess</h3>
+          <p class="text-gray-300">Evaluate your organization’s current risk exposure and resilience.</p>
+        </div>
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="protect.png" alt="Protect" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Protect</h3>
+          <p class="text-gray-300">Implement tailored defense mechanisms and endpoint hardening strategies.</p>
+        </div>
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="monitor.png" alt="Monitor" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Monitor</h3>
+          <p class="text-gray-300">Continuously track and detect anomalies in your infrastructure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section id="resources" class="py-20 px-6 text-center fade-in">
+    <div class="bg-gray-800 bg-opacity-30 backdrop-blur-md p-10 rounded-xl shadow-lg max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold text-red-500 mb-6">Resources</h2>
+      <p class="text-gray-200 max-w-3xl mx-auto mb-8">
+        Explore our latest research, whitepapers, and educational content to stay ahead of cyber threats.
+      </p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="ebooks.png" alt="Guides" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">E-books</h3>
+          <p class="text-gray-300">Download in-depth guides on emerging cybersecurity practices.</p>
+        </div>
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="webinars.png" alt="Webinars" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Webinars</h3>
+          <p class="text-gray-300">Learn directly from our global experts in live interactive sessions.</p>
+        </div>
+        <div class="p-6 rounded-lg bg-gray-900 bg-opacity-50 hover-pop">
+          <img src="casestudies.png" alt="Case Studies" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Case Studies</h3>
+          <p class="text-gray-300">Discover how we helped clients strengthen their defenses effectively.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Secure CTA -->
+  <section id="secure" class="py-20 px-6 text-center fade-in">
+    <div class="bg-gray-800 bg-opacity-30 backdrop-blur-md p-10 rounded-xl shadow-lg max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold text-red-500 mb-6">Ready to Secure Your Future?</h2>
+      <p class="text-gray-300 mb-8">Empower your startup with industry-grade security. Let’s protect your innovation together.</p>
+      <a href="#contact" class="px-8 py-4 bg-red-500 text-gray-900 rounded-lg font-semibold text-lg hover:bg-red-600 neon-red shadow-lg hover:shadow-red-500 transition transform hover:scale-105">
+        Get a Free Consultation
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 px-6 text-center fade-in">
+    <div class="bg-gray-800 bg-opacity-30 backdrop-blur-md p-10 rounded-xl shadow-lg max-w-xl mx-auto">
+      <h2 class="text-4xl font-bold text-red-500 mb-6">Contact Us</h2>
+      <p class="text-gray-300 mb-8">Get in touch with SecureFounders for a personalized cybersecurity roadmap.</p>
+      <form class="grid gap-4 text-left">
+        <input type="text" placeholder="Name" class="w-full px-4 py-2 rounded-md bg-gray-900 bg-opacity-50 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500">
+        <input type="email" placeholder="Email" class="w-full px-4 py-2 rounded-md bg-gray-900 bg-opacity-50 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500">
+        <input type="text" placeholder="Company" class="w-full px-4 py-2 rounded-md bg-gray-900 bg-opacity-50 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500">
+        <textarea placeholder="Message" class="w-full px-4 py-2 rounded-md bg-gray-900 bg-opacity-50 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+        <button type="submit" class="px-6 py-3 bg-red-500 text-gray-900 rounded-md font-semibold neon-red hover:bg-red-600 transition">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 py-6 mt-10 text-center text-gray-400">
+    <p>&copy; 2025 SecureFounders. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile Menu Toggle
+    const mobileButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Fade-in Animation
+    const sections = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
+
+    // Smooth Scroll Offset Fix
+    const navbarHeight = document.getElementById('navbar').offsetHeight;
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        const offsetTop = target.offsetTop - navbarHeight;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
