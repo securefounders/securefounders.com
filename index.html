@@ -571,6 +571,42 @@
             text-align: center;
         }
 
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow);
+            z-index: 999;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow);
+        }
+
+        .scroll-to-top:active {
+            transform: translateY(-2px);
+        }
+
         .scroll-indicator {
             position: absolute;
             bottom: 3rem;
@@ -868,7 +904,7 @@
     <section class="cta-section" id="contact">
         <h2>Protect What You're Building</h2>
         <p>Work with security experts who understand startup growth dynamics and deliver results that change founder decisions.</p>
-        <a href="https://calendly.com/securefounders/secure-founders-discovery-call" class="cta-btn"><i class="fas fa-paper-plane"></i> Start the Conversation</a>
+        <a href="mailto:hello@securefounders.com" class="cta-btn"><i class="fas fa-paper-plane"></i> Start the Conversation</a>
     </section>
 
     <footer class="footer">
@@ -903,10 +939,10 @@
             <div class="footer-section">
                 <h4><i class="fas fa-link"></i> Connect</h4>
                 <ul>
-                    <li><a href="securefounders@gmail.com"><i class="fas fa-envelope"></i> securefounders@gmail.com</a></li>
-                    <li><a href="https://www.linkedin.com/company/securefounders/"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-                    <li><a href="https://maps.app.goo.gl/6iAq5farLz53S7ux6"><i class="fas fa-map-marker-alt"></i> Visit Us</a></li>
-                    <li><a href="https://calendly.com/securefounders/secure-founders-discovery-call"><i class="fas fa-calendar"></i> Schedule a Call</a></li>
+                    <li><a href="mailto:hello@securefounders.com"><i class="fas fa-envelope"></i> hello@securefounders.com</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fas fa-calendar"></i> Schedule a Call</a></li>
                 </ul>
             </div>
         </div>
@@ -914,6 +950,10 @@
             <p>&copy; 2026 Secure Founders LLP. All rights reserved. | Privacy Policy | Terms of Service</p>
         </div>
     </footer>
+
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script>
         // Theme toggle functionality
@@ -957,11 +997,28 @@
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('.nav');
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
             if (window.scrollY > 100) {
                 nav.classList.add('scrolled');
             } else {
                 nav.classList.remove('scrolled');
             }
+
+            // Show/hide scroll to top button
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top functionality
+        document.getElementById('scrollToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
 
         // Fade in on scroll
