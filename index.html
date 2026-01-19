@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Founders - Adversarial-First Cybersecurity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B0000;
+            --primary-dark: #660000;
+            --primary-light: #A52A2A;
+            --accent: #DC143C;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F9FA;
+            --bg-tertiary: #F5F5F5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            --shadow: rgba(139, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+        }
+
+        [data-theme="dark"] {
+            --primary: #DC143C;
+            --primary-dark: #A52A2A;
+            --primary-light: #FF6B6B;
+            --accent: #FF4757;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --border-color: #333333;
+            --shadow: rgba(220, 20, 60, 0.2);
+            --gradient: linear-gradient(135deg, #DC143C 0%, #FF6B6B 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .nav.scrolled {
+            padding: 1rem 5%;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--primary);
+            -webkit-text-fill-color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--primary);
+        }
+
+        .cta-btn {
+            padding: 0.75rem 1.75rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, var(--primary) 2px, var(--primary) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, var(--primary) 2px, var(--primary) 4px);
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-badge i {
+            margin-right: 0.5rem;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+            color: var(--text-primary);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 .accent {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.35rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn-secondary {
+            padding: 0.75rem 1.75rem;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 8rem 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-label {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+        }
+
+        .section p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .principle-card {
+            background: var(--bg-primary);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px var(--shadow);
+        }
+
+        .principle-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .principle-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .principle-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .principle-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--bg-primary);
+            padding: 3.5rem;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .service-number {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--bg-secondary);
+            line-height: 1;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .service-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .service-card ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .service-card li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .service-card li i {
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            top: 0.9rem;
+        }
+
+        .difference-section {
+            background: var(--bg-secondary);
+        }
+
+        .difference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .difference-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .difference-item i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .difference-item h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .difference-item p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .cta-section {
+            padding: 10rem 5%;
+            text-align: center;
+            position: relative;
+            background: var(--bg-primary);
+            border-top: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            padding: 4rem 5%;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .services-grid,
+            .difference-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .cta-section h2 {
+                font-size: 2.5rem;
+            }
+
+            .principle-card,
+            .service-card {
+                padding: 2rem;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stats-banner {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 5%;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .stats-banner i {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            SECURE FOUNDERS
+        </div>
+        <ul class="nav-links">
+            <li><a href="#services"><i class="fas fa-cog"></i> Services</a></li>
+            <li><a href="#approach"><i class="fas fa-bullseye"></i> Approach</a></li>
+            <li><a href="#difference"><i class="fas fa-star"></i> Why Us</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <a href="#contact" class="cta-btn">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-user-secret"></i>
+                Adversarial-First Cybersecurity
+            </div>
+            <h1>If a capable attacker targeted your company today, <span class="accent">what would break?</span></h1>
+            <p>We answer the question every founder must address. Enterprise-quality adversarial security testing with startup-appropriate engagement models.</p>
+            <div class="hero-ctas">
+                <a href="#contact" class="cta-btn"><i class="fas fa-calendar-check"></i> Schedule Assessment</a>
+                <a href="#services" class="btn-secondary"><i class="fas fa-arrow-down"></i> Explore Services</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <div class="stats-banner">
+        <i class="fas fa-check-circle"></i> Trusted by high-growth startups across US, UK, Singapore, and India
+    </div>
+
+    <section class="section" id="approach">
+        <div class="section-header">
+            <div class="section-label">
+                <i class="fas fa-compass"></i>
+                Our Operating Doctrine
+            </div>
+            <h2>Principles Over Process</h2>
+            <p>We operate differently because security is adversarial, not procedural. Every decision is tested against these non-negotiable principles.</p>
+        </div>
+        <div class="principles-grid">
+            <div class="principle-card fade-in">
+                <div class="principle-icon">
+                    <i class="fas fa-crosshairs"></i>
+                </div>
+                <h3>Security is Adversarial</h3>
+                <p>We simulate real attacker behavior, not theoretical compliance frameworks. We test systems the way attackers exploit them.</p>
+            </div>
+            <div class="principle-card fade-in">
+                <div class="principle-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>Depth Beats Breadth</h3>
+                <p>Limited capacity ensures comprehensive engagement over superficial coverage. Transformational impact for focused partnerships.</p>
+            </div>
+            <div class="principle-card fade-in">
+                <div class="principle-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Truth Over Comfort</h3>
+                <p>We deliver uncomfortable realities with clarity and empathy. Real security requires facing actual risks, not checking boxes.</p>
+            </div>
+            <div class="principle-card fade-in">
+                <div class="principle-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Outcomes Over Outputs</h3>
+                <p>We focus on security improvement, not report generation. Remediation ownership, not just documentation.</p>
+            </div>
+            <div class="principle-card fade-in">
+                <div class="principle-icon">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h3>Selective Partnership</h3>
+                <p>Client rejection is quality control. We work only with companies we can genuinely help, protecting engagement excellence.</p>
+            </div>
+            <div class="principle-card fade-in">
+                <div class="principle-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3>Founder-Centric</h3>
+                <p>Direct access to expertise without enterprise overhead. Strategic continuity through long-term relationships.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="services">
+        <div class="section-header">
+            <div class="section-label">
+                <i class="fas fa-briefcase"></i>
+                What We Do
+            </div>
+            <h2>Services Built for Startups</h2>
+            <p>From initial assessment to continuous validation, we protect what founders are building.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-number">01</div>
+                <div class="service-icon">
+                    <i class="fas fa-skull-crossbones"></i>
+                </div>
+                <h3>Founder Red Team Assessment</h3>
+                <h4>Realistic attack simulations that expose actual compromise paths</h4>
+                <p>Unlike traditional penetration testing, we don't respect arbitrary scope boundaries. Real breaches use multiple vulnerabilities in sequence—we show you the complete attack narrative from initial access through data exfiltration.</p>
+                <ul>
+                    <li><i class="fas fa-arrow-right"></i> External attack simulation across your entire stack</li>
+                    <li><i class="fas fa-arrow-right"></i> Internal lateral movement analysis</li>
+                    <li><i class="fas fa-arrow-right"></i> Business impact mapping for every finding</li>
+                    <li><i class="fas fa-arrow-right"></i> Fix-first remediation roadmap with priorities</li>
+                    <li><i class="fas fa-arrow-right"></i> Executive briefing with live exploit demonstration</li>
+                </ul>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-number">02</div>
+                <div class="service-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>Security Hardening Program</h3>
+                <h4>Systematic elimination of exploit paths through architecture redesign</h4>
+                <p>Finding problems without fixing them is irresponsible. We bridge the gap between identification and resolution through hands-on implementation and validation.</p>
+                <ul>
+                    <li><i class="fas fa-arrow-right"></i> Identity and access management redesign</li>
+                    <li><i class="fas fa-arrow-right"></i> Cloud infrastructure security corrections</li>
+                    <li><i class="fas fa-arrow-right"></i> Application and API hardening</li>
+                    <li><i class="fas fa-arrow-right"></i> Architectural security enhancements</li>
+                    <li><i class="fas fa-arrow-right"></i> Validation testing and maintenance runbooks</li>
+                </ul>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-number">03</div>
+                <div class="service-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Ongoing Adversarial Assurance</h3>
+                <h4>Continuous validation as your systems evolve</h4>
+                <p>Startups aren't static. Every sprint introduces new code, every quarter brings infrastructure changes. Retainers provide continuous validation that security posture doesn't degrade.</p>
+                <ul>
+                    <li><i class="fas fa-arrow-right"></i> Quarterly red team exercises on new features</li>
+                    <li><i class="fas fa-arrow-right"></i> Monthly executive security briefings</li>
+                    <li><i class="fas fa-arrow-right"></i> Pre-launch validation for major releases</li>
+                    <li><i class="fas fa-arrow-right"></i> Drift detection and monitoring</li>
+                    <li><i class="fas fa-arrow-right"></i> Unlimited strategic advisory access</li>
+                </ul>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-number">04</div>
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Training & Enablement</h3>
+                <h4>Adversarial expertise transfer to your team</h4>
+                <p>Closed-door programs derived from real red team insights. Not awareness training—capability transformation through hands-on exercises and real-world scenarios.</p>
+                <ul>
+                    <li><i class="fas fa-arrow-right"></i> Executive security workshops for leadership</li>
+                    <li><i class="fas fa-arrow-right"></i> Secure development enablement for engineers</li>
+                    <li><i class="fas fa-arrow-right"></i> VC portfolio security programs</li>
+                    <li><i class="fas fa-arrow-right"></i> Incident response planning</li>
+                    <li><i class="fas fa-arrow-right"></i> Threat modeling and architecture review</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section difference-section" id="difference">
+        <div class="section-header">
+            <div class="section-label">
+                <i class="fas fa-gem"></i>
+                Why Secure Founders
+            </div>
+            <h2>Built for How Startups Actually Work</h2>
+            <p>We deliver enterprise-quality adversarial security testing with startup-appropriate engagement models.</p>
+        </div>
+        <div class="difference-grid">
+            <div class="difference-item fade-in">
+                <i class="fas fa-code-branch"></i>
+                <h3>Real Exploits</h3>
+                <p>Not isolated vulnerability reports—complete attack chains showing how compromise actually occurs</p>
+            </div>
+            <div class="difference-item fade-in">
+                <i class="fas fa-chart-line"></i>
+                <h3>Business Context</h3>
+                <p>Every finding mapped to revenue, data, or operational risk that founders understand</p>
+            </div>
+            <div class="difference-item fade-in">
+                <i class="fas fa-user-tie"></i>
+                <h3>Founder Access</h3>
+                <p>Direct communication with security experts, not account teams or ticketing systems</p>
+            </div>
+            <div class="difference-item fade-in">
+                <i class="fas fa-bolt"></i>
+                <h3>Rapid Execution</h3>
+                <p>2-4 week assessments, not 6-12 month enterprise engagements</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <h2>Protect What You're Building</h2>
+        <p>Work with security experts who understand startup growth dynamics and deliver results that change founder decisions.</p>
+        <a href="mailto:hello@securefounders.com" class="cta-btn"><i class="fas fa-paper-plane"></i> Start the Conversation</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4><i class="fas fa-cog"></i> Services</h4>
+                <ul>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Red Team Assessment</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Security Hardening</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Ongoing Assurance</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Training & Enablement</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-building"></i> Company</h4>
+                <ul>
+                    <li><a href="#approach"><i class="fas fa-chevron-right"></i> Our Approach</a></li>
+                    <li><a href="#difference"><i class="fas fa-chevron-right"></i> Why Us</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Case Studies</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Insights</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-book"></i> Resources</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Technical Blog</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Security Guides</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Industry Reports</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Threat Intelligence</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4><i class="fas fa-link"></i> Connect</h4>
+                <ul>
+                    <li><a href="mailto:hello@securefounders.com"><i class="fas fa-envelope"></i> hello@securefounders.com</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fas fa-calendar"></i> Schedule a Call</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Secure Founders LLP. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const theme = html.getAttribute('data-theme');
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Parallax effect for hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent && scrolled < window.innerHeight) {
+                heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+                heroContent.style.opacity = 1 - (scrolled / 600);
+            }
+        });
+    </script>
+</body>
+</html>
