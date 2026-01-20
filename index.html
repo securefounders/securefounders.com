@@ -29,10 +29,10 @@
         }
 
         [data-theme="dark"] {
-            --primary: #DC143C;
-            --primary-dark: #A52A2A;
-            --primary-light: #FF6B6B;
-            --accent: #FF4757;
+            --primary: #8B0000;
+            --primary-dark: #660000;
+            --primary-light: #A52A2A;
+            --accent: #DC143C;
             --bg-primary: #0a0a0a;
             --bg-secondary: #1a1a1a;
             --bg-tertiary: #2a2a2a;
@@ -40,8 +40,8 @@
             --text-secondary: #e0e0e0;
             --text-muted: #a0a0a0;
             --border-color: #333333;
-            --shadow: rgba(220, 20, 60, 0.2);
-            --gradient: linear-gradient(135deg, #DC143C 0%, #FF6B6B 100%);
+            --shadow: rgba(139, 0, 0, 0.3);
+            --gradient: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
         }
 
         body {
@@ -314,7 +314,7 @@
 
         .principles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             max-width: 1400px;
             margin: 0 auto;
@@ -380,7 +380,7 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 2.5rem;
             max-width: 1400px;
             margin: 0 auto;
@@ -632,6 +632,12 @@
             color: var(--primary);
         }
 
+        @media (max-width: 1200px) {
+            .principles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -649,6 +655,7 @@
                 display: none;
             }
 
+            .principles-grid,
             .services-grid,
             .difference-grid {
                 grid-template-columns: 1fr;
@@ -700,10 +707,10 @@
             SECURE FOUNDERS
         </div>
         <ul class="nav-links">
-            <li><a href="#services"><i class="fas fa-cog"></i> Services</a></li>
-            <li><a href="#approach"><i class="fas fa-bullseye"></i> Approach</a></li>
-            <li><a href="#difference"><i class="fas fa-star"></i> Why Us</a></li>
-            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#difference">Why Us</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
         <div style="display: flex; gap: 1rem; align-items: center;">
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
